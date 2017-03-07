@@ -14,15 +14,16 @@ def add_paran(combo='', bank1=[], bank2=[], stack=[]):
     # if all are empty
     if not stack and not bank1 and not bank2:
         return combo
-    # if stack is empty and bank1 is empty but bank2 is not
-    # elif not stack and not bank1 and bank2:
-    #     return
-    # if
-    # elif not stack and not bank2 and bank1:
-    #     return
 
     if not stack and bank1:
+        # all parantheses balanced so far, can only add open
         return add_paran(combo + '(', bank1[1:], bank2, stack + ['('])
 
-    if stack and bank2:
-        return add_paran(combo + ')', bank1, bank2[1:], stack[1:])
+    if stack:
+        # there are parantheses to close
+        if not bank1:
+            # there are no more open parantheses
+            return add_paran(combo + ')', bank1, bank2[1:], stack[1:])
+
+        return [add_paran(combo + '(', bank1[1:], bank2, stack + ['(']),
+                add_paran(combo + ')', bank1, bank2[1:], stack[1:])]
