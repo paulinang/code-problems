@@ -63,3 +63,105 @@ def n_coin_combos(coins, amount):
 # row = [1, 0, 1, 1, 1, 1, 1 + 1]
 
 # row[6] = 2
+
+
+# Give all combo of coins to make amount
+def coin_combos(coins, n):
+    if n < 0:
+        # need to return empty list so iterable but nothing inside
+        return []
+    if n == 0:
+        # starts an empty combo that is immediately filled with coin in previous call
+        return [[]]
+    all_combos = []
+
+    for coin in coins:
+        # keep reducing n by coin value
+        # find combos for remaining n
+        # if remaining n is negative, it means no combo can be made for previous n
+        # if remaining n is 0, previous n can be made by coin value
+        # start a list of combos [[]]
+        combos = coin_combos(coins, n - coin)
+        for combo in combos:
+            # for each combo in list of combos
+            # add a coin
+            combo.append(coin)
+            # if remaining n is 0, combos available is [[coin]]
+            all_combos.append(combo)
+            # append to master list of combos each combo
+
+    # send master list up call stack
+    return all_combos
+
+# coins [2, 3], amount 6
+# all_combos_6 = []
+# for coin 2
+#   amount -> 4
+#   all_combos_4 = []
+#   for coin 2
+#       amount -> 2
+#       all_combos_2 = []
+#       for coin 2
+#          amount -> 0
+#          return master list of combos [[]]
+#       combos = [[]]
+#       for only combo [], append 2
+#       append that combo [2] to all_combos_2 [[2]]
+#
+#       for coin 3
+#           amount -> -1
+#           return empty master list
+#       combos = []
+#       no combos to append to all_combos
+#       all_combos_2 remains [[2]]
+#
+#       no more coins
+#       return all_combos_2 [[2]]
+#
+#   combos = [[2]]
+#   for combo in combos append coin 2 then append to all_combos_4
+#   all_combos_4 = [[2, 2]]
+#
+#   for coin 3
+#       amount -> 1
+#       all_combos_1 = []
+#       for coin 2
+#           amount -> -1
+#           return master list = []
+#       combos = []
+#       no combo in combos
+#       all_combos _1 = []
+#
+#       return master list []
+#       for coin 3
+#           amount -> -2
+#           return master list = []
+#       no more coins
+#       all_combos_1 remains []
+#
+#   combos = []
+#   for combo in combos, append to all_combos_4
+#      all_combos_4 = [[2, 2]]
+#   no more coins, return all_combos_4
+#
+# combos = [[2, 2]], append each combo with coin 2, then each combo to all_combos_6
+# all_combos_6 = [[2, 2, 2]]
+#
+# for coin 3 and amount 6
+#     amount -> 3
+#     for coin 2
+#         amount -> 1
+#         for coin 2, amount becomes negative, no combos
+#         for coin 3, amount becomes negative, no combos
+#     combos = []
+#     all_combos_3 = []
+#     for coin 3
+#          amount -> 0
+#          return [[]]
+#     combos = [[]] append coin 3 to each combo, then append each combo to all_combos_3
+#     all_combos_3 = [[3]], no more combos, return
+#
+# combos = [[3]]
+# append coin 3 to each, append each combo to all combos_6
+# all_combos_6 = [[2, 2, 2], [3, 3]]
+# return all_combos_6, done!
