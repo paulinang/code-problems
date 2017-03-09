@@ -91,7 +91,18 @@ def coin_combos(coins, n):
             # append to master list of combos each combo
 
     # send master list up call stack
-    return all_combos
+    # first dedupe all_combos
+    for combo in all_combos:
+        # sort combos so easy comparison
+        combo.sort()
+    # sort all_combos so compare side by side
+    all_combos.sort()
+
+    # make unique combos, seed with first combo, and only add combos if != prev
+    unique_combos = [all_combos[i]
+                     for i in range(len(all_combos))
+                     if i == 0 or all_combos[i] != all_combos[i-1]]
+    return unique_combos
 
 # coins [2, 3], amount 6
 # all_combos_6 = []
