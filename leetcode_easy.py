@@ -70,3 +70,19 @@ def find_keyboard_words(words):
                 keyboard_words.append(word)
 
     return keyboard_words
+
+
+# Fizz for multiples of 3, buzz for multiples of 5, fizzbuzz for both
+def fizzbuzz(num):
+
+    result = []
+    for i in range(1, num + 1):
+        s = ''
+        if i % 3 == 0:
+            s = 'Fizz'
+        if i % 5 == 0:
+            s += 'Buzz'
+
+        result.append(s or str(i))
+
+    return result
