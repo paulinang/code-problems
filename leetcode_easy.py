@@ -35,3 +35,16 @@ def int2bin(num):
         num /= 2
 
     return bin_str
+
+
+# Number complement
+def find_complement(num):
+
+    num_s = int2bin(num).lstrip('1')
+    comp = 0
+
+    for i in range(len(num_s)):
+        if num_s[i] == '0':
+            comp += 2 ^ i
+
+    return comp
