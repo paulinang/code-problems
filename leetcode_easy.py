@@ -48,3 +48,25 @@ def find_complement(num):
             comp += 2 ^ i
 
     return comp
+
+
+# Find keyboard row words
+def find_keyboard_words(words):
+
+    row1 = set('qwertyuiop')
+    row2 = set('asdfghjkl')
+    row3 = set('zxcvbnm')
+
+    keyboard_words = []
+    for word in words:
+        if word[0] in row1:
+            if not (set(word) & row2) or not (set(word) & row3):
+                keyboard_words.append(word)
+        elif word[0] in row2:
+            if not (set(word) & row1) or not (set(word) & row3):
+                keyboard_words.append(word)
+        else:
+            if not (set(word) & row2) or not (set(word) & row1):
+                keyboard_words.append(word)
+
+    return keyboard_words
